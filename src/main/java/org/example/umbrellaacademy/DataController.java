@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/api/data")
@@ -30,5 +32,26 @@ public class DataController {
         homininosDataService.processHominidoData(data).get();
         return ResponseEntity.ok("Homininos data processed successfully");
     }
+    // DataController.java
+
+    @GetMapping("/api/process-data")
+    public List<String> processData(@RequestParam List<String> data) {
+        List<String> results = new ArrayList<>();
+
+        // Ejecuta el procesamiento en varios hilos
+        List<Future<String>> futures = dataProcessingService.processData(data);
+
+        // Obtener los resultados de las tareas
+        for (Future<String> future : futures) {
+            try {
+                results.add(future.get()); // Espera que cada hilo termine y obtiene el resultado
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return results; // Retorna la lista de resultados
+    }
+
 }
 
