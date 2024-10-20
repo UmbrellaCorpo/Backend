@@ -4,7 +4,6 @@ import org.example.umbrellaacademy.Data.EvolutionData;
 import org.example.umbrellaacademy.Services.EvolutionDataService;
 import org.example.umbrellaacademy.Data.HominidoData;
 import org.example.umbrellaacademy.Services.HominidosDataService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +12,16 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/api/data")
-@RequiredArgsConstructor
 public class DataController {
 
     private final EvolutionDataService evolutionDataService;
     private final HominidosDataService homininosDataService;
+
+    // Constructor para inyectar las dependencias manualmente
+    public DataController(EvolutionDataService evolutionDataService, HominidosDataService homininosDataService) {
+        this.evolutionDataService = evolutionDataService;
+        this.homininosDataService = homininosDataService;
+    }
 
     @PostMapping("/evolution")
     public ResponseEntity<String> processEvolutionData(@RequestBody List<EvolutionData> data) throws ExecutionException, InterruptedException {
@@ -31,4 +35,3 @@ public class DataController {
         return ResponseEntity.ok("Homininos data processed successfully");
     }
 }
-

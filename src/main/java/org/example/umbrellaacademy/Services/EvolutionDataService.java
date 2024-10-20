@@ -2,7 +2,6 @@ package org.example.umbrellaacademy.Services;
 
 import org.example.umbrellaacademy.Repos.EvolutionDataRepository;
 import org.example.umbrellaacademy.Data.EvolutionData;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -12,11 +11,16 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
-@RequiredArgsConstructor
 public class EvolutionDataService {
 
     private final EvolutionDataRepository evolutionDataRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(EvolutionDataService.class);
+
+    // Constructor manual
+    public EvolutionDataService(EvolutionDataRepository evolutionDataRepository) {
+        this.evolutionDataRepository = evolutionDataRepository;
+    }
 
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<Void> processEvolutionData(List<EvolutionData> dataList) {
@@ -30,4 +34,3 @@ public class EvolutionDataService {
         return CompletableFuture.completedFuture(null);
     }
 }
-
