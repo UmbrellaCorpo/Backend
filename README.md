@@ -1,1 +1,2 @@
-# Backend
+Este es mi repositorio en github: https://github.com/UmbrellaCorpo/Backend.git
+Este proyecto implementa un sistema de procesamiento concurrente para gestionar y analizar datos científicos, como información genética, bioquímica y física, asegurando la eficiencia en el manejo de múltiples tareas mediante hilos y procesos paralelos. Desarrollado en Java utilizando Spring Boot, el backend expone servicios REST que permiten la inserción, modificación y consulta de entidades científicas como EvolutionData y HominidoData. Utiliza JPA para manejar la persistencia de datos en una base de datos H2 en memoria, optimizando el rendimiento del sistema para escenarios concurrentes y de alto volumen de datos.
